@@ -15,7 +15,7 @@ function App() {
     setLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:5000/api/shorten', {
+      const response = await axios.post('https://url-shortener-api-05hx.onrender.com/api/shorten', {
         originalUrl
       });
       setShortUrl(response.data.shortUrl);
