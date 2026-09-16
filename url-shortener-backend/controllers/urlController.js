@@ -20,7 +20,11 @@ const shortenUrl = async (req, res) => {
         const url = new Url({ originalUrl, shortCode, expiresAt });
         await url.save();
 
-        res.status(201).json({ shortUrl: `http://localhost:5000/${shortCode}`, shortCode });
+        // Dynamically determine host so it works both locally and on Render
+        const protocol = req.protocol;
+        const host = req.get('host');
+
+        res.status(201).json({ shortUrl: `${protocol}://${host}/${shortCode}`, shortCode });
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Server error' });
